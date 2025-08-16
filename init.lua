@@ -12,6 +12,26 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local lazy_config = require "configs.lazy"
+---@type rest.Opts
+vim.g.rest_nvim = {
+  response = {
+    hooks = {
+      format = function()
+        error("Response hook is being called!")
+      end,
+    },
+  },
+}
+
+-- Disable folds in Kulala UI JSON result buffers
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "json.kulala_ui",
+  callback = function()
+    vim.opt_local.foldenable = false
+    vim.opt_local.foldmethod = "manual"
+    vim.opt_local.foldlevel = 99 -- fully open
+  end,
+})
 
 -- load plugins
 require("lazy").setup({
