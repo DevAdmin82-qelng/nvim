@@ -8,6 +8,17 @@ vim.lsp.enable(servers)
 
 local pid = vim.fn.getpid()
 
+-- Enable inline diagnostics (virtual text)
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●", -- could be "■", "▎", "x"
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
 local mason_path = vim.fn.stdpath("data") .. "/mason/bin/OmniSharp"
 
 lspconfig.omnisharp.setup({
